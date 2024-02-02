@@ -1,0 +1,143 @@
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
+.container {
+  padding: 10px 0;
+  position: relative;
+  width: 40%;
+  margin: 0 auto;
+  background-color: #eee;
+}
+
+.header {
+  padding: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+}
+
+.playing {
+  color: red;
+  font-weight: 500;
+  text-align: center;
+}
+
+.music-title {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 30px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.music-thumb {
+  display: block;
+  width: 240px;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 0 auto;
+}
+
+.range {
+  margin-top: 20px;
+  -webkit-appearance: none;
+  width: 100%;
+  display: block;
+}
+
+.range::-webkit-slider-runnable-track {
+  background-color: #ddd;
+  height: 7px;
+  border-radius: 0;
+}
+
+.range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: red;
+  width: 14px;
+  height: 7px;
+  box-shadow: 0 0 5px rgba(255, 194, 39, 0.2);
+  cursor: pointer;
+}
+
+.actions {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fa-solid {
+  font-size: 23px;
+  cursor: pointer;
+}
+
+.play-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.play-btn:hover {
+  opacity: 0.8;
+}
+
+.fa-play {
+  color: white;
+}
+
+.fa-shuffle--active {
+  color: red;
+}
+
+.playlist {
+  height: calc(100vh - 500px);
+  overflow-y: auto;
+  width: 95%;
+  margin: 430px auto 0;
+}
+
+.song {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+}
+
+.song + .song {
+  margin-top: 20px;
+}
+
+.song__col {
+  margin-left: 15px;
+}
+
+.song__thumb {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: contain;
+}
+
+.fa-ellipsis {
+  margin-left: auto;
+}
+
+.song__title {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.song__actor {
+  margin-top: 5px;
+}
