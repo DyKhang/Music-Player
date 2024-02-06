@@ -1,5 +1,6 @@
 body {
   font-family: "Montserrat", sans-serif;
+  background-color: #f5f5f5;
 }
 
 .container {
@@ -7,15 +8,15 @@ body {
   position: relative;
   width: 40%;
   margin: 0 auto;
-  background-color: #eee;
 }
 
 .header {
   padding: 10px;
-  position: absolute;
+  position: fixed;
   top: 0;
-  left: 0;
-  width: 100%;
+  left: 50%;
+  translate: -50%;
+  width: 40%;
   background-color: #fff;
 }
 
@@ -34,11 +35,17 @@ body {
 }
 
 .music-thumb {
-  display: block;
-  width: 240px;
-  height: 240px;
-  object-fit: cover;
+  background-image: url(./Thumbs/song5.jpg);
+  width: 100%;
+  padding-top: 100%;
+  background-size: cover;
+  background-position: center;
   border-radius: 50%;
+}
+
+.music-thumb-wrap {
+  position: relative;
+  width: 60%;
   margin: 0 auto;
 }
 
@@ -68,7 +75,8 @@ body {
 .actions {
   margin-top: 15px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 40px;
   align-items: center;
 }
 
@@ -92,26 +100,45 @@ body {
   opacity: 0.8;
 }
 
-.fa-play {
+.fa-play,
+.fa-pause {
   color: white;
 }
 
-.fa-shuffle--active {
+.fa-pause {
+  display: none !important;
+}
+
+.play-btn--playing .fa-pause {
+  display: inline-block !important;
+}
+
+.play-btn--playing .fa-play {
+  display: none;
+}
+
+.fa-shuffle--active,
+.fa-arrow-rotate-right--active {
   color: red;
 }
 
 .playlist {
-  height: calc(100vh - 500px);
-  overflow-y: auto;
   width: 95%;
-  margin: 430px auto 0;
+  margin: 440px auto 0;
 }
 
 .song {
   padding: 10px;
   display: flex;
   align-items: center;
+  border-radius: 10px;
   background-color: #fff;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+.song--active {
+  background-color: rgb(174, 45, 45);
+  color: white;
 }
 
 .song + .song {
