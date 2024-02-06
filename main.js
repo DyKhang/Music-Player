@@ -39,7 +39,7 @@ const app = {
       name: "Âm Thầm Bên Em",
       singer: "Sơn Tùng MTP",
       path: "./Music/song2.mp3",
-      image: "./Thumbs/song2.jpg",
+      image: "./Thumbs/song2.JPG",
     },
     {
       name: "Anh Là Ngoại Lệ Của Em",
