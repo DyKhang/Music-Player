@@ -22,12 +22,20 @@ const nextBtn = document.querySelector(".fa-solid.fa-forward-fast");
 const preBtn = document.querySelector(".fa-solid.fa-backward-fast");
 const randomBtn = document.querySelector(".fa-solid.fa-shuffle");
 const repeatBtn = document.querySelector(".fa-solid.fa-arrow-rotate-right");
+const PLAYER_STORAGE_KEY = "MUSIC_PLAYER";
+const volumeBtn = document.querySelector(".fa-solid.fa-volume-off");
+const volumeProcess = document.querySelector(".volume-process");
 
 const app = {
   currentIndex: 0,
   isPlaying: false,
   isRandom: false,
   isRepeat: false,
+  config: JSON.parse(localStorage.getItem(PLAYER_STORAGE_KEY)) || {},
+  setConfig: function (key, value) {
+    this.config[key] = value;
+    localStorage.setItem(PLAYER_STORAGE_KEY, JSON.stringify(this.config));
+  },
   songs: [
     {
       name: "Bạc Phận",
@@ -93,7 +101,7 @@ const app = {
   render: function () {
     const htmls = this.songs.map(function (song, index) {
       return `
-        <div class="song ${index === app.currentIndex ? "song--active" : ""}">
+        <div data-index="${index}" class="song ${index === app.currentIndex ? "song--active" : ""}">
         <img src="${song.image}" alt="" class="song__thumb" />
         <div class="song__col">
           <h2 class="song__title">${song.name}</h2>
@@ -197,6 +205,7 @@ const app = {
         randomBtn.classList.add("fa-shuffle--active");
         _this.isRandom = true;
       }
+      _this.setConfig("isRandom", _this.isRandom);
     };
 
     // Xử lý next song khi audio ended
@@ -217,12 +226,41 @@ const app = {
         repeatBtn.classList.add("fa-arrow-rotate-right--active");
         _this.isRepeat = true;
       }
+      _this.setConfig("isRepeat", _this.isRepeat);
+    };
+
+    // Lắng nghe hành vi click vào playlist
+    playList.onclick = function (e) {
+      const songNode = e.target.closest(".song:not(.song--active)");
+      if (songNode || e.target.closest(".fa-solid.fa-ellipsis")) {
+        // Xử lý khi click vào song
+        if (songNode) {
+          _this.currentIndex = Number(songNode.getAttribute("data-index"));
+          _this.loadCurrentSong();
+          audio.play();
+          _this.render();
+        }
+      }
+    };
+
+    // Xử lý khi click vào volume button
+    volumeBtn.onclick = function () {
+      volumeProcess.classList.toggle("volume-process--active");
+    };
+
+    // Xử lý thay đổi volume song khi kéo volume process
+    volumeProcess.oninput = function () {
+      audio.volume = volumeProcess.value;
     };
   },
   loadCurrentSong: function () {
     heading.innerText = this.currentSong.name;
     thumb.style.backgroundImage = `url(${this.currentSong.image})`;
     audio.src = this.currentSong.path;
+  },
+  loadConfig: function () {
+    this.isRandom = this.config.isRandom;
+    this.isRepeat = this.config.isRepeat;
   },
   nextSong: function () {
     this.currentIndex++;
@@ -261,6 +299,8 @@ const app = {
     }, 300);
   },
   start: function () {
+    // Load config
+    this.loadConfig();
     // Định nghĩa các thuộc tính cho Obj
     this.defineProperties();
 
@@ -271,6 +311,22 @@ const app = {
     this.loadCurrentSong();
     // Render Playlist
     this.render();
+
+    // Hiển thị trạng thái ban đầu của btnRp && btnRd
+    if (_this.isRandom) {
+      randomBtn.classList.remove("fa-shuffle--active");
+      _this.isRandom = false;
+    } else {
+      randomBtn.classList.add("fa-shuffle--active");
+      _this.isRandom = true;
+    }
+    if (_this.isRepeat) {
+      repeatBtn.classList.remove("fa-arrow-rotate-right--active");
+      _this.isRepeat = false;
+    } else {
+      repeatBtn.classList.add("fa-arrow-rotate-right--active");
+      _this.isRepeat = true;
+    }
   },
 };
 
